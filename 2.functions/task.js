@@ -1,78 +1,67 @@
 // Задание 1
 function getArrayParams(arr) {
-  let min, max, sum, avg;
-    
-    min = arr[0];
-    max = arr[0];
-    for(let i = 0; i < arr.length; i++){
-      
-      if(min > arr[i]){
-        min = arr[i];
-      }
-      if(max < arr[i]){
-        max = arr[i];
-      }
-      sum += arr[i];
-      avg = sum / arr.length;
+  let min = arr [0], max = arr[0], sum = 0, avg = 0;
+  for (let i = 0;i < arr.length; i++){
+    if (arr[i] < min){
+      min = arr[i];
     }
-    return { min: min, max: max, avg: avg };
+    if (arr[i] > max){
+      max = arr[i];
+    }
+  sum += arr[i];
   }
+  avg = Number((sum / arr.length).toFixed(2));
   
-  getArrayParams([1,2,3, -550])
-
+  return { min: min, max: max, avg: avg };
+  }
 
 // Задание 2
-let arrOfArr = [[1, 2, 3, 4], [10, 20, -10, -20]];
-let arr = [];
-
-function worker(arr){
+function worker(arr) {
   let sum = 0;
-  for(let i = 0; i < arr.length; i++){
+  for (i=0; i<arr.length; i++){
     sum += arr[i];
   }
 
-  console.log(sum);
+  return sum;
 }
-worker([1,2,3,4])
 
-function makeWork(worker){
-  for(let i = 0; i < arrOfArr.length; i++){
-    sum1 = arrOfArr[0];
-    sum2 = arrOfArr[1];
-    let min = arrOfArr[0];
-    let max = arrOfArr[0];
-    if(min > arrOfArr[i]){
-      min = arrOfArr[i];
+function makeWork(arrOfArr, worker) {
+  let max = null;
+  for (let i = 0; i < arrOfArr.length; i++){
+    if (max == null){
+      max = worker(arrOfArr[i])
     }
-    if(max < arrOfArr[i]){
-      max = arrOfArr[i];
+    if (max < worker(arrOfArr[i])){
+      max = worker(arrOfArr[i])
     }
-    console.log("min: " + worker(min), "max: " + worker(max))
   }
-  worker(sum1, sum2);
+
+  return max;
 }
+
 
 // Задание 3
-let arrOfArr = [[1, 2, 3, 4], [10, 20, -10, -20]];
-let arr = [];
-
-function worker(arr){
-  let sum = 0;
-  for(let i = 0; i < arr.length; i++){
-    sum += arr[i];
-  }
-
-  console.log(sum);
-}
-
-function worker2 (){
-  for(let i = 0; i < arrOfArr.length; i++){
+function worker2(arr) {
+  let max = null;
+    let min = null;
+    for (let i = 0; i < arr.length; i++) {
+      if(max == null) {
+        max = arr[i]
+      }
+      if (max < arr[i]) {
+        max = arr[i]
+      }
+    }
     
-  let x1 = worker(arrOfArr[0]);
-  let x2 = worker(arrOfArr[1]);
-  let x3 = x1 % x2;
-  }
-  console.log(x3);
-} 
-worker2();
+    for (let i = 0; i < arr.length; i++) {
+      if(min == null) {
+        min = arr[i]
+      }
+      if (min > arr[i]) {
+        min = arr[i]
+      }
+    }
+  
+    return Math.abs(max - min);
+
 }
