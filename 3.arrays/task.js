@@ -17,8 +17,3 @@ function advancedFilter(arr) {
 
   return resultArr; 
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Pri
