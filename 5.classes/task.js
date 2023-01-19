@@ -118,7 +118,6 @@ class Student {
 		}  
 		else {
 			console.log('Была введена некорректная оценка!');
-			this.exclude();
 		}
 	}
 
