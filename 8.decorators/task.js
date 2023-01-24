@@ -1,47 +1,43 @@
 function cachingDecoratorNew(func) {
   let cache = [];
 
-function wrapper(...args) {
-    const hash = args.join(','); // получаем правильный хэш
-    let idx = cache.findIndex((item)=> item.hash === hash ); // ищем элемент, хэш которого равен нашему хэшу
-    if (idx !== -1 ) { // если элемент не найден
-        console.log("Из кэша: " + cache[idx].result); 
-        return "Из кэша: " + cache[idx].result;
+  function wrapper(...args) {
+    const hash = args.join(",");
+    let index = cache.findIndex(item => item.hash == hash);
+    if (index !== -1) {
+      console.log("Из кэша: " + cache[index].value);
+      return "Из кэша: " + cache[index].value;
     }
+    let result = func(...args);
+    cache.push({
+      hash: hash,
+      value: result,
+    });
 
-    let result = func(...args); // если в кэше результата нет - выполняем вычисления
-    cache.push({hash, result}) ; // добавляем тот элемент, у которого правильная структура
-    if (cache.length > 5) { 
-      cache.shift() // много элементов в кэше надо удалить самый старый (первый) 
+    if (cache.length > 5) {
+      cache.shift();
     }
     console.log("Вычисляем: " + result);
-    return "Вычисляем: " + result;  
-}
-return wrapper;
-}
-
-
-function debounceDecoratorNew(func, ms) {  
-  let timerId = null;
-  function wrapper (...args){
-    if (timerId === null) {
-      func(...args);
-    }
-    clearTimeout(timerId);
-    timerId = setTimeout(() => timerId = null, ms);
+    return "Вычисляем: " + result;
   }
   return wrapper;
-} 
+}
 
-function debounceDecorator2(func, ms) {
-  let timerId = null;
-  function wrapper(...args){
-    if (timerId === null) {
+function debounceDecoratorNew(func, delay) {
+  var debounceDecoratorNewCalls = 0;
+  let timeoutId = null;
+
+  function wrapper(...args) {
+    if (timeoutId === null) {
       func(...args);
     }
-    clearTimeout(timerId);
-    timerId = setTimeout(() => timerId = null, ms);
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+    }, delay);
     wrapper.count++;
+    // wrapper.allCount = debounceDecoratorNew.calledTimes;
+    wrapper.allCount = debounceDecoratorNewCalls++;
   }
   return wrapper;
 }
