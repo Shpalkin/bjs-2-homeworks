@@ -36,7 +36,8 @@ function debounceDecoratorNew(func, delay) {
     }, delay);
     wrapper.count++;
     // wrapper.allCount = debounceDecoratorNew.calledTimes;
-    wrapper.allCount = debounceDecoratorNewCalls++;
+    wrapper.allCount = 0;
+    allCount++;
   }
   return wrapper;
 }
